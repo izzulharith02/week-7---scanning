@@ -5,12 +5,6 @@
 
 ---
 
-## 📌 Table of Contents
-- [Question 1 – packet1.pcap Flag](#question-1--packet1pcap-flag)
-- [Question 2 – packet2.pcap Flag](#question-2--packet2pcap-flag)
-
----
-
 ## Question 1 – packet1.pcap Flag
 
 ### Overview
@@ -26,7 +20,8 @@ wireshark packet1.pcap
 ### Step 2 – Identify Anomalous Packet
 All packets are standard ICMP Echo (ping) with **Length 98**, except **Packet 37** which has **Length 70** — indicating hidden data.
 
-![Wireshark packet1 - Anomalous Packet 37](./screenshots/packet1_wireshark.png)
+<img width="948" height="936" alt="1" src="https://github.com/user-attachments/assets/b8319448-9b57-4de8-b82c-3b3acaa016b7" />
+
 
 > **Packet 37** stands out with a different length and contains a non-standard ICMP payload.
 
@@ -51,7 +46,8 @@ This is a **Base64 encoded string**. Decoding it:
 echo "U1VDVEYyMDIze2FpX2lzX2Nvb2x9" | base64 -d
 ```
 
-![Terminal Base64 Decode](./screenshots/packet1_terminal.png)
+<img width="752" height="272" alt="2" src="https://github.com/user-attachments/assets/20552f15-1ede-4592-9a1f-2ad5c9278b36" />
+
 
 ### ✅ Flag 1
 ```
@@ -78,7 +74,8 @@ In the Wireshark filter bar, type:
 ftp
 ```
 
-![Wireshark FTP Filter](./screenshots/packet2_ftp.png)
+<img width="957" height="937" alt="3" src="https://github.com/user-attachments/assets/4566a9d2-b750-4ff9-a3b0-bd657fa1566f" />
+
 
 The FTP session reveals:
 | Command | Details |
@@ -97,12 +94,14 @@ ftp-data
 
 One packet appears — **Packet 216** — containing the transferred file.
 
-![Wireshark FTP-DATA Filter](./screenshots/packet2_ftpdata.png)
+<img width="953" height="933" alt="4" src="https://github.com/user-attachments/assets/33f6ff29-e09e-4a55-a635-0d0c1063f2e4" />
+
 
 ### Step 4 – Follow TCP Stream
 Right-click on **Packet 216** → **Follow** → **TCP Stream**
 
-![TCP Stream - URL Found](./screenshots/packet2_tcpstream.png)
+<img width="952" height="937" alt="5" src="https://github.com/user-attachments/assets/f8ae1cdc-bad9-4ef3-8f9b-8d9a369be8d0" />
+
 
 The file content is revealed:
 ```
@@ -112,12 +111,14 @@ https://tinyurl.com/yr5zprz4
 ### Step 5 – Open the URL
 Navigating to `https://tinyurl.com/yr5zprz4` redirects to a **Google Doc** titled **"Club Tux"** containing text encoded in **Wingdings font**.
 
-![Google Doc - Wingdings](./screenshots/packet2_googledoc.png)
+<img width="847" height="775" alt="6" src="https://github.com/user-attachments/assets/2d80c3a2-82e6-4de8-b91f-9e0132271a49" />
+
 
 ### Step 6 – Decode Wingdings
 The Wingdings symbols were decoded using **dCode Wingdings Decoder** (`dcode.fr/wingdings-font`):
 
-![dCode Wingdings Decoded](./screenshots/packet2_dcode.png)
+<img width="423" height="532" alt="7" src="https://github.com/user-attachments/assets/1944e9fc-cc3a-4b3a-aceb-8022aae2b22c" />
+
 
 ### ✅ Flag 2
 ```
